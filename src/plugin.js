@@ -1,11 +1,11 @@
-import videojs from 'video.js'
-import { version as VERSION } from '../package.json'
+import videojs from 'video.js';
+import {version as VERSION} from '../package.json';
 
 // Default options for the plugin.
-const defaults = {}
+const defaults = {};
 
 // Cross-compatibility for Video.js 5 and 6.
-const registerPlugin = videojs.registerPlugin || videojs.plugin
+const registerPlugin = videojs.registerPlugin || videojs.plugin;
 // const dom = videojs.dom || videojs;
 
 /**
@@ -143,112 +143,116 @@ class SocialShareOverlayPlugin {
     }
   }
 
-  showShareOverlay () {
-    if (!this.shareOverlayEl) {
-      this.createOverlayEl()
+  showShareOverlay() {
+    if(!this.shareOverlayEl) {
+      this.createOverlayEl();
     }
-    this.populateShareOverlay()
-    this.onSharePausedState = this.player.paused()
-    this.player.pause()
-    this.player.addClass('vjs-social-share-overlay-open')
+    this.populateShareOverlay();
+    this.onSharePausedState = this.player.paused();
+    this.player.pause();
+    this.player.addClass("vjs-social-share-overlay-open");
   }
 
-  hideShareOverlay () {
-    if (!this.onSharePausedState) {
-      this.player.play()
+  hideShareOverlay() {
+    if(!this.onSharePausedState){
+      this.player.play();
     }
-    this.player.removeClass('vjs-social-share-overlay-open')
+    this.player.removeClass("vjs-social-share-overlay-open");
   }
 
-  shareTemplate () {
-    return `<div class="vjs-share-overlay-main">` +
-      `<div class="vjs-share-overlay-controls">` +
-      `<h3 class="vjs-share-overlay-header">` +
-      `<span>Share Video</span>` +
-      `<button>&times;</button>` +
-      `</h3>` +
-      `<div class="vjs-share-overlay-buttons">` +
-      `<button class="vjs-share-overlay-button copy-link" data-platform="link" data-clipboard-target=".vjs-share-overlay-link"></button>` +
-      `<button class="vjs-share-overlay-button facebook vjs-icon-facebook" data-platform="facebook"></button>` +
-      `<button class="vjs-share-overlay-button twitter vjs-icon-twitter" data-platform="twitter"></button>` +
-      `<button class="vjs-share-overlay-button email vjs-icon-share" data-platform="email"></button>` +
-      `</div>` +
-      `<div class="vjs-share-overlay-link"></div>` +
-      `</div>` +
-      `</div>` +
-      `<div class="vjs-share-overlay-footer">` +
-      `<h2 class="vjs-share-overlay-title"></h2>` +
-      `<p class="vjs-share-overlay-description"></p>` +
-      `</div>`
+  shareTemplate() {
+    return `<div class="vjs-share-overlay-main">`+
+        `<div class="vjs-share-overlay-controls">` +
+            `<h3 class="vjs-share-overlay-header">` +
+              `<span>Share Video</span>` +
+              `<button>&times;</button>` +
+            `</h3>` +
+            `<div class="vjs-share-overlay-buttons">` +
+              `<button class="vjs-share-overlay-button copy-link" data-platform="link" data-clipboard-target=".vjs-share-overlay-link"></button>` +
+              `<button class="vjs-share-overlay-button facebook vjs-icon-facebook" data-platform="facebook"></button>` +
+              `<button class="vjs-share-overlay-button twitter vjs-icon-twitter" data-platform="twitter"></button>` +
+              `<button class="vjs-share-overlay-button email vjs-icon-share" data-platform="email"></button>` +
+            `</div>` +
+            `<div class="vjs-share-overlay-link"></div>` +
+          `</div>` +
+        `</div>` +
+        `<div class="vjs-share-overlay-footer">` +
+          `<h2 class="vjs-share-overlay-title"></h2>` +
+          `<p class="vjs-share-overlay-description"></p>` +
+        `</div>`;
   }
 
-  requireClipboard () {
-    if (!this.clipboardInitialized) {
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js'
-      script.onload = this.attachClipboard
-      document.body.appendChild(script)
-    } else {
-      this.attachClipboard()
+  requireClipboard(){
+    if(!this.clipboardInitialized) {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js';
+      script.onload = this.attachClipboard;
+      document.body.appendChild(script);
+    }else{
+      this.attachClipboard();
     }
-    this.clipboardInitialized = true
+    this.clipboardInitialized = true;
   }
 
-  attachClipboard () {
-    if (typeof Clipboard !== 'undefined') {
-      let clip = new Clipboard('.vjs-share-overlay-button.copy-link')
-      console.log('attached', clip)
+  attachClipboard (){
+    if(typeof Clipboard !== 'undefined') {
+      let clip = new Clipboard('.vjs-share-overlay-button.copy-link');
+      console.log('attached', clip);
     }
   }
 
-  stringifyObject (obj) {
-    let str = []
-    for (let p in obj)
+  stringifyObject(obj) {
+    let str = [];
+    for(let p in obj)
       if (obj.hasOwnProperty(p)) {
-        str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]))
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
       }
-    return str.join('&')
+    return str.join("&");
   }
 
-  getTwitterShareLink (title, url) {
 
-    const link = 'https://twitter.com/intent/tweet?'
+    getTwitterShareLink (title, url){
+
+    const link = 'https://twitter.com/intent/tweet?';
 
     const params = {
-      url: url,
-      text: title,
+      url : url,
+      text : title,
+    };
+
+    if(this.options.via) {
+      params.via = this.options.via;
     }
 
-    if (this.options.via) {
-      params.via = this.options.via
-    }
-
-    return link + this.stringifyObject(params)
+    return link + this.stringifyObject(params);
 
   }
 
-  getEmailShareLink (title, shareLink) {
 
-    const link = 'mailto:?'
-    const body = (this.options.emailBody ? this.options.emailBody + '\n\n' : '')
-      + title + '\n\n'
-      + shareLink
+    getEmailShareLink (title, shareLink){
+
+    const link = 'mailto:?';
+    const body = (this.options.emailBody ? this.options.emailBody + "\n\n" : '')
+      + title + "\n\n"
+      + shareLink;
     const params = {
-      subject: title,
-      body: body
-    }
+      subject : title,
+      body : body
+    };
 
-    return link + this.stringifyObject(params)
+    return link + this.stringifyObject(params);
 
   }
+
+
 
 }
 
 // Register the plugin with video.js.
-registerPlugin('socialShareOverlay', socialShareOverlay)
+registerPlugin('socialShareOverlay', socialShareOverlay);
 
 // Include the version number.
-socialShareOverlay.VERSION = VERSION
+socialShareOverlay.VERSION = VERSION;
 
-export default socialShareOverlay
+export default socialShareOverlay;
