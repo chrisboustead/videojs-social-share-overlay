@@ -122,6 +122,11 @@ class SocialShareOverlayPlugin {
     }
   }
 
+  set(config){
+    this.options = config;
+    this.populateShareOverlay();
+  }
+
   populateShareOverlay () {
     const title = this.shareOverlayEl.querySelector('.vjs-share-overlay-title')
     const desc = this.shareOverlayEl.querySelector('.vjs-share-overlay-description')
