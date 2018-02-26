@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>videojs-social-share-overlay Demo</title>
+  <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
+  <link href="dist/videojs-social-share-overlay.css" rel="stylesheet">
+</head>
+<body>
+  <video id="videojs-social-share-overlay-player" class="video-js vjs-default-skin vjs-16-9 vjs-fluid" controls>
+    <source src="//vjs.zencdn.net/v/oceans.mp4" type='video/mp4'>
+    <source src="//vjs.zencdn.net/v/oceans.webm" type='video/webm'>
+  </video>
+  <ul>
+    <li><a href="test/">Run unit tests in browser.</a></li>
+    
+  </ul>
+  
+  <script src="node_modules/video.js/dist/video.js"></script>
+  <script src="dist/videojs-social-share-overlay.js"></script>
+  <script>
+    (function(window, videojs) {
+      var player = window.player = videojs('videojs-social-share-overlay-player');
+      player.socialShareOverlay({
+        url: 'https://google.com/',
+        image: 'http://lorempixel.com/g/800/800',
+        title: 'Shared Video Title',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        platforms: ['twitter','facebook','email','link'],
+        emailBody: "Check this out on WWE.com:",
+        via: 'wwe'
+      });
+    }(window, window.videojs));
+  </script>
+</body>
+</html>
