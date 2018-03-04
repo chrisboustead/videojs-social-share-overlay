@@ -6,7 +6,6 @@
   &.vjs-social-share-overlay.vjs-social-share-overlay-open {
     display: block;
 
-
     .vjs-share-overlay {
       position: absolute;
       top: 0;
@@ -20,6 +19,7 @@
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
       display: flex;
       flex-direction: column;
+      z-index: 2;
 
 
       .vjs-share-overlay-main {
@@ -103,6 +103,10 @@
         padding: .5rem;
         color: #000;
         width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        white-space: nowrap;
       }
 
       .vjs-share-overlay-footer {

@@ -159,6 +159,7 @@ class SocialShareOverlayPlugin {
     this.onSharePausedState = this.player.paused();
     this.player.pause();
     this.player.addClass("vjs-social-share-overlay-open");
+    this.player.trigger('share-overlay-open');
   }
 
   hideShareOverlay() {
@@ -166,6 +167,7 @@ class SocialShareOverlayPlugin {
       this.player.play();
     }
     this.player.removeClass("vjs-social-share-overlay-open");
+    this.player.trigger('share-overlay-closed');
   }
 
   shareTemplate() {
