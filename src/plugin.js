@@ -141,7 +141,7 @@ class SocialShareOverlayPlugin {
     for (let i = 0; i < buttons.length; ++i) {
       const button = buttons[i]
       const platform = button.dataset.platform
-      if (this.options.platforms.indexOf(platform) >= 0) {
+      if (this.options.platforms && this.options.platforms.indexOf(platform) >= 0) {
         // show the button
         button.classList.remove('vjs-hidden')
       } else {
