@@ -74,8 +74,14 @@ class SocialShareOverlayPlugin {
     const concreteButtonInstance = player.controlBar.addChild(this._socialShareButton, {componentClass: 'socialShare'}, placementIndex)
     concreteButtonInstance.addClass('vjs-social-share')
     concreteButtonInstance.addClass('vjs-icon-share')
-    concreteButtonInstance.removeClass('vjs-hidden')
+    if(!this.options.url) {
+      concreteButtonInstance.addClass('vjs-hidden')
+    }
 
+    if(!this.shareOverlayEl) {
+      this.createOverlayEl();
+    }
+    this.populateShareOverlay();
   };
 
   createOverlayEl () {
@@ -124,13 +130,17 @@ class SocialShareOverlayPlugin {
 
   set(config){
     this.options = config;
-    this.populateShareOverlay;
+    this.populateShareOverlay();
   }
 
   populateShareOverlay () {
     if(!this.shareOverlayEl) {
       return;
     }
+    if(!this.options.url) {
+      return this._socialShareButton.addClass('vjs-hidden');
+    }
+    this._socialShareButton.removeClass('vjs-hidden');
     const title = this.shareOverlayEl.querySelector('.vjs-share-overlay-title')
     const desc = this.shareOverlayEl.querySelector('.vjs-share-overlay-description')
     const link = this.shareOverlayEl.querySelector('.vjs-share-overlay-link')
@@ -152,10 +162,6 @@ class SocialShareOverlayPlugin {
   }
 
   showShareOverlay() {
-    if(!this.shareOverlayEl) {
-      this.createOverlayEl();
-    }
-    this.populateShareOverlay();
     this.onSharePausedState = this.player.paused();
     this.player.pause();
     this.player.addClass("vjs-social-share-overlay-open");
@@ -207,8 +213,7 @@ class SocialShareOverlayPlugin {
 
   attachClipboard (){
     if(typeof Clipboard !== 'undefined') {
-      let clip = new Clipboard('.vjs-share-overlay-button.copy-link');
-      console.log('attached', clip);
+      new Clipboard('.vjs-share-overlay-button.copy-link');
     }
   }
 
@@ -222,7 +227,7 @@ class SocialShareOverlayPlugin {
   }
 
 
-    getTwitterShareLink (title, url){
+  getTwitterShareLink (title, url){
 
     const link = 'https://twitter.com/intent/tweet?';
 
