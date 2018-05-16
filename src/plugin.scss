@@ -4,9 +4,14 @@
 
   // This class is added to the video.js element by the plugin by default.
   &.vjs-social-share-overlay.vjs-social-share-overlay-open {
-    display: block;
-
     .vjs-share-overlay {
+      display: flex;
+    }
+  }
+
+  &.vjs-social-share-overlay {
+    .vjs-share-overlay {
+      display: none;
       position: absolute;
       top: 0;
       left: 0;
@@ -17,7 +22,6 @@
       background: -webkit-linear-gradient(top,  rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.7) 80%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
       background: linear-gradient(to bottom,  rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.7) 80%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3000000', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
-      display: flex;
       flex-direction: column;
       z-index: 2;
 

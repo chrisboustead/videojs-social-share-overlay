@@ -1,6 +1,6 @@
 {
   "name": "videojs-social-share-overlay",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Social share overlay for videojs",
   "main": "dist/videojs-social-share-overlay.cjs.js",
   "module": "dist/videojs-social-share-overlay.es.js",
