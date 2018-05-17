@@ -108,6 +108,10 @@ class SocialShareOverlayPlugin {
   doShareAction (platform) {
     const shareUrl = this.options.url || ''
     const windowOptions = 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'
+    this.player.trigger('share-initiated', {
+      platform: platform,
+      url: shareUrl
+    });
     switch (platform) {
       case 'link':
         const copyBtn = this.shareOverlayEl.querySelector('.copy-link')
