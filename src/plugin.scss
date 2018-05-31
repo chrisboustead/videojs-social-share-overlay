@@ -51,6 +51,7 @@
       .vjs-share-overlay-controls {
         flex: none;
         max-width: 280px;
+        min-width: 250px;
         width: 50%;
       }
 
@@ -144,6 +145,13 @@
         }
       }
 
+    }
+    &.vjs-social-share-overlay.vjs-social-share-overlay-minimal {
+      .vjs-share-overlay {
+        .vjs-share-overlay-footer {
+          display: none;
+        }
+      }
     }
   }
 }

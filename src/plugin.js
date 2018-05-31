@@ -166,10 +166,16 @@ class SocialShareOverlayPlugin {
   }
 
   showShareOverlay() {
+    const height = this.player.el().offsetHeight;
+
     this.onSharePausedState = this.player.paused();
     this.player.pause();
     this.player.addClass("vjs-social-share-overlay-open");
     this.player.trigger('share-overlay-open');
+
+    if(height < 280) {
+      this.player.addClass("vjs-social-share-overlay-minimal")
+    }
   }
 
   hideShareOverlay() {
@@ -177,6 +183,7 @@ class SocialShareOverlayPlugin {
       this.player.play();
     }
     this.player.removeClass("vjs-social-share-overlay-open");
+    this.player.removeClass("vjs-social-share-overlay-minimal");
     this.player.trigger('share-overlay-closed');
   }
 
